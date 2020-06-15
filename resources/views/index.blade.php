@@ -31,12 +31,14 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav"> </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="question/create" target="_blank">Ask Question</a></li>
-                        <li><a href="category.html" target="_blank">Questions</a></li>
-                        <li><a href="blog.html" target="_blank">Blogs</a></li>
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
+                        <li><a href="{{ route('posts.home') }}">Home</a></li>
+                        <li><a href="{{ route('posts.create') }}" target="_blank">Ask Question</a></li>
+                        @if (auth()->guest())
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                        @else
+                            <li><a href="{{ route('user.logout') }}">Logout</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -49,7 +51,7 @@
                 @yield('content')
                 <aside class="col-md-3 sidebar97239">
                     <div class="status-part3821">
-                        <h4>stats</h4> <a href="#"><i class="fa fa-question-circle" aria-hidden="true"> Question(20)</i></a> <i class="fa fa-comment" aria-hidden="true"> Answers(50)</i> </div>
+                    <h4>stats</h4> <a href="#"><i class="fa fa-question-circle" aria-hidden="true"> Question({{ total_question() }}) </i></a> <i class="fa fa-comment" aria-hidden="true"> Answers({{ total_answer() }})</i> </div>
                     <div class="categori-part329">
                         <h4>Category</h4>
                         <ul>
@@ -57,20 +59,6 @@
                             <li><a href="#">Andriod developer</a></li>
                             <li><a href="#">grapics developer</a></li>
                             <li><a href="#">web developer</a></li>
-                        </ul>
-                    </div>
-                    <div class="tags-part2398">
-                        <h4>Tags</h4>
-                        <ul>
-                            <li><a href="#">analytics</a></li>
-                            <li><a href="#">Computer</a></li>
-                            <li><a href="#">Developer</a></li>
-                            <li><a href="#">Google</a></li>
-                            <li><a href="#">Interview</a></li>
-                            <li><a href="#">Programmer</a></li>
-                            <li><a href="#">Salary</a></li>
-                            <li><a href="#">University</a></li>
-                            <li><a href="#">Employee</a></li>
                         </ul>
                     </div>
                     <div class="recent-post3290">
@@ -125,11 +113,13 @@
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/npm.js') }}"></script>
-    <script src="{{ asset('js/editor.js') }}"></script>
+    <script src="{{ asset('js/ckeditor.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $("#txtEditor").Editor();
-        });
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
     </script>
 </body>
 </html>
