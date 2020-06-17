@@ -2363,3 +2363,6 @@ h5:hover {
     max-height: 300px;
     overflow: scroll;
 }
+.search {
+    margin-bottom: 0 !important;
+}

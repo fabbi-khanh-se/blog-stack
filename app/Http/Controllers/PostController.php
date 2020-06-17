@@ -10,13 +10,23 @@ use Auth;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('created_at', 'DESC')->get();
-
-        $views = Post::orderBy('view_count', 'DESC')->get();
+        
+        if (!is_null($request->search)) {
+            $posts = Post::where('title', 'LIKE', '%' . $request->search .  '%')->orwhere('body', 'LIKE', '%' . $request->search .  '%')->orderBy('created_at', 'DESC')->get();
+        } else {
+            $posts = Post::orderBy('created_at', 'DESC')->get();
+        }
+        
+        if (!is_null($request->search)) {
+            $views = Post::where('title', 'LIKE', '%' . $request->search .  '%')->orwhere('body', 'LIKE', '%' . $request->search .  '%')->orderBy('view_count', 'DESC')->get();
+        } else {
+            $views = Post::orderBy('view_count', 'DESC')->get();
+        }
         $postId = Comment::all()->unique('post_id')->pluck('post_id');
-        $noAnswers = DB::table('posts')->whereNotIn('posts.id', $postId)->orderBy('created_at', 'DESC')->get();
+
+        $noAnswers = DB::table('posts')->whereNotIn('posts.id', $postId)->where('title', 'LIKE', '%' . $request->search .  '%')->orwhere('body', 'LIKE', '%' . $request->search .  '%')->orderBy('created_at', 'DESC')->get();
 
         return view('home', compact('posts', 'views', 'noAnswers'));
     }

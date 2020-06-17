@@ -19,17 +19,14 @@
     <div class="top-menu-bottom932">
         <nav class="navbar navbar-default">
             <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"><img src="{{ asset('image/logo.png') }}" alt="Logo"></a>
+                <a class="navbar-brand" href="#"><img src="{{ asset('image/logo.png') }}" alt="Logo"></a>
+                <div class="col-md-4" style="margin-top: 10px">
+                    <form class="form-inline" action="{{ route('posts.home') }}" method="GET">
+                        <input class="form-control mr-sm-2 search" type="search" placeholder="Search" aria-label="Search" name="search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav"> </ul>
+                <div class="collapse navbar-collapse col-md-8" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{ route('posts.home') }}">Home</a></li>
                         <li><a href="{{ route('posts.create') }}" target="_blank">Ask Question</a></li>
@@ -43,6 +40,29 @@
                 </div>
             </div>
         </nav>
+        {{-- <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">WebSiteName</a>
+              </div>
+              <ul class="nav navbar-nav" style="margin-left: 200px">
+                <li class="active"><a href="{{ route('posts.home') }}">Home</a></li>
+                <li><a href="{{ route('posts.create') }}" target="_blank">Ask Question</a></li>
+                @if (auth()->guest())
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Register</a></li>
+                @else
+                    <li><a href="{{ route('user.logout') }}">Logout</a></li>
+                @endif
+              </ul>
+              <form class="navbar-form navbar-left" action="/action_page.php">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+              </form>
+            </div>
+          </nav> --}}
     </div>
     
     <section class="main-content920">
